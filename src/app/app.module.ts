@@ -9,6 +9,10 @@ import { DashboardModule } from './views/dashboard/dashboard.module';
 import { CoreModule } from './core/core.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MedicosModule } from './views/medicos/medicos.module';
+import { MedicosService } from './views/medicos/services/medico.service';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -31,8 +35,11 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     CoreModule,
     DashboardModule,
+    ReactiveFormsModule,
+    MedicosModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [MedicosService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
