@@ -49,18 +49,19 @@ export class InserirMedicoComponent implements OnInit {
     this.medicoVM = this.form.value;
 
     this.medicoService.inserir(this.medicoVM).subscribe({
-      next: (medico: FormsMedicoViewModel) => this.processarSucesso(medico),
+      next: (medico: FormsMedicoViewModel) => {console.log(medico)
+        this.processarSucesso(medico)},
       error: (err: Error) => this.processarFalha(err),
     });
   }
 
   processarSucesso(medico: FormsMedicoViewModel) {
-    // this.toastrService.success(
-    //   `O medico "${medico.nome}" foi cadastrado com sucesso!`,
-    //   'Sucesso'
-    // );
+    this.toastrService.success(
+      `O médico "${medico.nome}" foi cadastrado com sucesso!`,
+      'Sucesso'
+    );
 
-    //this.router.navigate(['/medicos/listar']);
+    this.router.navigate(['/medicos/listar']);
   }
 
   processarFalha(erro: Error) {

@@ -20,7 +20,6 @@ export class ListarMedicosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.route.data.pipe(map((res) => res['medicos'])).subscribe({
       next: (medicos) => 
       {

@@ -5,9 +5,17 @@ import { InserirMedicoComponent } from './views/medicos/inserir-medico/inserir-m
 import { ListarMedicosComponent } from './views/medicos/listar-medicos/listar-medicos.component';
 import { ListarMedicoViewModel } from './views/medicos/models/listar-medico.view-model';
 import { MedicosService } from './views/medicos/services/medico.service';
+import { FormsMedicoViewModel } from './views/medicos/models/forms-medico.view-model';
+import { EditarMedicoComponent } from './views/medicos/editar-medico/editar-medico.component';
 
 const listarMedicosResolver: ResolveFn<ListarMedicoViewModel[]> = () => {
   return inject(MedicosService).selecionarTodos();
+};
+
+const formsMedicoResolver: ResolveFn<FormsMedicoViewModel> = (
+  route: ActivatedRouteSnapshot
+) => {
+  return inject(MedicosService).selecionarPorId(route.paramMap.get('id')!);
 };
 
 const routes: Routes = [
@@ -25,9 +33,14 @@ const routes: Routes = [
   component: InserirMedicoComponent,
 },
 {
+  path: 'medicos/editar/:id',
+  component: EditarMedicoComponent,
+  resolve: {medico: formsMedicoResolver}
+},
+{
   path: 'medicos/listar',
   component: ListarMedicosComponent,
-  resolve: {medicos: listarMedicosResolver},
+  resolve: {medicos: listarMedicosResolver}
 },
 ];
 

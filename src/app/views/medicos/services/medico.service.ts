@@ -18,15 +18,20 @@ export class MedicosService {
 
   constructor(private http: HttpClient) {}
 
-  public inserir(
-    medico: FormsMedicoViewModel
-  ): Observable<FormsMedicoViewModel> {
+  public inserir(medico: FormsMedicoViewModel): Observable<FormsMedicoViewModel> 
+  {
     return this.http
-      .post<any>(this.endpoint, medico, /*this.obterHeadersAutorizacao()*/)
+      .post<any>(this.endpoint, medico)
       .pipe(
-        map((res) => res.dados),
-        // Interceptar e tratar a mensagem de erro
-        //catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+        catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+      );
+  }
+
+  public editar(id: string, medico: FormsMedicoViewModel) {
+    return this.http
+      .put<any>(this.endpoint + "/" + id, medico)
+      .pipe(
+        catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
       );
   }
 
@@ -34,7 +39,14 @@ export class MedicosService {
     return this.http
       .get<any>(this.endpoint)
       .pipe(
-        map((res) => res),
+        catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+      );
+  }
+
+  public selecionarPorId(id: string): Observable<FormsMedicoViewModel> {
+    return this.http
+      .get<any>(this.endpoint + "/visualizacao-completa/" + id)
+      .pipe(
         catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
       );
   }
@@ -47,7 +59,9 @@ export class MedicosService {
     if (erro.status == 401)
       mensagemErro =
         'O usuário não está autorizado. Efetue login e tente novamente.';
-    else mensagemErro = erro.error?.erros?.[0] || 'Erro desconhecido';
+    else mensagemErro = erro.error?.[0].message;
+
+    
 
     return throwError(() => new Error(mensagemErro));
   }
