@@ -21,15 +21,12 @@ export class ListarMedicosComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.pipe(map((res) => res['medicos'])).subscribe({
-      next: (medicos) => 
-      {
-        this.obterMedicos(medicos);
-      }
+      next: (medicos) => this.processarSucesso(medicos)
     });
   }
 
 
-  obterMedicos(medicos: ListarMedicoViewModel[]) {
+  processarSucesso(medicos: ListarMedicoViewModel[]) {
     this.medicos = medicos;
   }
 

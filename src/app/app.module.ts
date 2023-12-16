@@ -36,10 +36,8 @@ import { RouterModule } from '@angular/router';
     CoreModule,
     DashboardModule,
     ReactiveFormsModule,
-    MedicosModule,
     RouterModule
   ],
-  providers: [MedicosService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

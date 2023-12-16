@@ -10,53 +10,20 @@ import { EditarMedicoComponent } from './views/medicos/editar-medico/editar-medi
 import { ExcluirMedicoComponent } from './views/medicos/excluir-medico/excluir-medico.component';
 import { VisualizarMedicoViewModel } from './views/medicos/models/visualizar-medico.view-model';
 
-const listarMedicosResolver: ResolveFn<ListarMedicoViewModel[]> = () => {
-  return inject(MedicosService).selecionarTodos();
-};
-
-const formsMedicoResolver: ResolveFn<FormsMedicoViewModel> = (
-  route: ActivatedRouteSnapshot
-) => {
-  return inject(MedicosService).selecionarPorId(route.paramMap.get('id')!);
-};
-
-const visualizarMedicoResolver: ResolveFn<VisualizarMedicoViewModel> = (
-  route: ActivatedRouteSnapshot
-) => {
-  return inject(MedicosService).selecionarMedicoCompletoPorId(
-    route.paramMap.get('id')!
-  );
-};
-
 const routes: Routes = [
   {
-  path: '',
-  redirectTo: 'dashboard',
-  pathMatch: 'full',
-},
-{
-  path: 'dashboard',
-  component: DashboardComponent,
-},
-{
-  path: 'medicos/inserir',
-  component: InserirMedicoComponent,
-},
-{
-  path: 'medicos/editar/:id',
-  component: EditarMedicoComponent,
-  resolve: {medico: formsMedicoResolver}
-},
-{
-  path: 'medicos/excluir/:id',
-  component: ExcluirMedicoComponent,
-  resolve: { medico: visualizarMedicoResolver },
-},
-{
-  path: 'medicos/listar',
-  component: ListarMedicosComponent,
-  resolve: {medicos: listarMedicosResolver}
-},
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
+  {
+    path: 'medicos',
+    loadChildren: () => import('./views/medicos/medicos.module').then((m) => m.MedicosModule)
+  }
 ];
 
 @NgModule({

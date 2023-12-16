@@ -8,10 +8,13 @@ import { CardMedicoComponent } from './card-medico/card-medico.component';
 import { RouterModule } from '@angular/router';
 import { EditarMedicoComponent } from './editar-medico/editar-medico.component';
 import { ExcluirMedicoComponent } from './excluir-medico/excluir-medico.component';
+import { MedicosRoutingModule } from './medicos-routing.module';
+import { MedicosService } from './services/medico.service';
 
 
 @NgModule({
   declarations: [InserirMedicoComponent, ListarMedicosComponent, CardMedicoComponent, EditarMedicoComponent, ExcluirMedicoComponent],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule]
+  imports: [CommonModule, ReactiveFormsModule, MedicosRoutingModule],
+  providers: [MedicosService]
 })
 export class MedicosModule { }
