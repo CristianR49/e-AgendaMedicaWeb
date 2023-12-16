@@ -14,7 +14,7 @@ import { VisualizarMedicoViewModel } from '../models/visualizar-medico.view-mode
 @Injectable()
 export class MedicosService {
   private endpoint: string =
-    'https://localhost:7287/api/medicos';
+    'https://localhost:7287/api/medicos/';
 
   constructor(private http: HttpClient) {}
 
@@ -29,7 +29,7 @@ export class MedicosService {
 
   public editar(id: string, medico: FormsMedicoViewModel) {
     return this.http
-      .put<any>(this.endpoint + "/" + id, medico)
+      .put<any>(this.endpoint + id, medico)
       .pipe(
         catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
       );
@@ -43,9 +43,29 @@ export class MedicosService {
       );
   }
 
+  public excluir(id: string): Observable<any> {
+    return this.http
+      .delete(this.endpoint + id)
+      .pipe(
+        catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+      );
+  }
+
   public selecionarPorId(id: string): Observable<FormsMedicoViewModel> {
     return this.http
-      .get<any>(this.endpoint + "/visualizacao-completa/" + id)
+      .get<any>(this.endpoint + "visualizacao-completa/" + id)
+      .pipe(
+        catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
+      );
+  }
+
+  public selecionarMedicoCompletoPorId(
+    id: string
+  ): Observable<VisualizarMedicoViewModel> {
+    return this.http
+      .get<any>(
+        this.endpoint + 'visualizacao-completa/' + id
+      )
       .pipe(
         catchError((err: HttpErrorResponse) => this.processarErroHttp(err))
       );

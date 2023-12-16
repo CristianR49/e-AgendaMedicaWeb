@@ -7,6 +7,8 @@ import { ListarMedicoViewModel } from './views/medicos/models/listar-medico.view
 import { MedicosService } from './views/medicos/services/medico.service';
 import { FormsMedicoViewModel } from './views/medicos/models/forms-medico.view-model';
 import { EditarMedicoComponent } from './views/medicos/editar-medico/editar-medico.component';
+import { ExcluirMedicoComponent } from './views/medicos/excluir-medico/excluir-medico.component';
+import { VisualizarMedicoViewModel } from './views/medicos/models/visualizar-medico.view-model';
 
 const listarMedicosResolver: ResolveFn<ListarMedicoViewModel[]> = () => {
   return inject(MedicosService).selecionarTodos();
@@ -16,6 +18,14 @@ const formsMedicoResolver: ResolveFn<FormsMedicoViewModel> = (
   route: ActivatedRouteSnapshot
 ) => {
   return inject(MedicosService).selecionarPorId(route.paramMap.get('id')!);
+};
+
+const visualizarMedicoResolver: ResolveFn<VisualizarMedicoViewModel> = (
+  route: ActivatedRouteSnapshot
+) => {
+  return inject(MedicosService).selecionarMedicoCompletoPorId(
+    route.paramMap.get('id')!
+  );
 };
 
 const routes: Routes = [
@@ -36,6 +46,11 @@ const routes: Routes = [
   path: 'medicos/editar/:id',
   component: EditarMedicoComponent,
   resolve: {medico: formsMedicoResolver}
+},
+{
+  path: 'medicos/excluir/:id',
+  component: ExcluirMedicoComponent,
+  resolve: { medico: visualizarMedicoResolver },
 },
 {
   path: 'medicos/listar',

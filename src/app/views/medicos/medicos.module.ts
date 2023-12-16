@@ -7,10 +7,11 @@ import { ListarMedicosComponent } from './listar-medicos/listar-medicos.componen
 import { CardMedicoComponent } from './card-medico/card-medico.component';
 import { RouterModule } from '@angular/router';
 import { EditarMedicoComponent } from './editar-medico/editar-medico.component';
+import { ExcluirMedicoComponent } from './excluir-medico/excluir-medico.component';
 
 
 @NgModule({
-  declarations: [InserirMedicoComponent, ListarMedicosComponent, CardMedicoComponent, EditarMedicoComponent],
+  declarations: [InserirMedicoComponent, ListarMedicosComponent, CardMedicoComponent, EditarMedicoComponent, ExcluirMedicoComponent],
   imports: [CommonModule, ReactiveFormsModule, RouterModule]
 })
 export class MedicosModule { }
