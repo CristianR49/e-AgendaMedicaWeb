@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
-import { DashboardModule } from './views/dashboard/dashboard.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { DashboardModule } from './views/dashboard/dashboard.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MedicosModule } from './views/medicos/medicos.module';
-import { MedicosService } from './views/medicos/services/medico.service';
 import { RouterModule } from '@angular/router';
 
 
@@ -22,7 +19,6 @@ import { RouterModule } from '@angular/router';
   // Importa metadados de outros módulos (incluindo bibliotecas)
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule,
 
@@ -36,7 +32,7 @@ import { RouterModule } from '@angular/router';
     CoreModule,
     DashboardModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ],
   bootstrap: [AppComponent],
 })

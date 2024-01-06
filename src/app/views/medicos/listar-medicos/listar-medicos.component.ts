@@ -16,8 +16,7 @@ export class ListarMedicosComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private toastrService: ToastrService,
-    private medicosService: MedicosService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.data.pipe(map((res) => res['medicos'])).subscribe({

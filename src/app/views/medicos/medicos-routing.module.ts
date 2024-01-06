@@ -4,7 +4,6 @@ import { FormsMedicoViewModel } from "./models/forms-medico.view-model";
 import { MedicosService } from "./services/medico.service";
 import { NgModule, inject } from "@angular/core";
 import { VisualizarMedicoViewModel } from "./models/visualizar-medico.view-model";
-import { DashboardComponent } from "../dashboard/dashboard.component";
 import { EditarMedicoComponent } from "./editar-medico/editar-medico.component";
 import { ExcluirMedicoComponent } from "./excluir-medico/excluir-medico.component";
 import { InserirMedicoComponent } from "./inserir-medico/inserir-medico.component";

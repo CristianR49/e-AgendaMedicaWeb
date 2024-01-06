@@ -9,4 +9,4 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [CommonModule, RouterModule, NgbCollapseModule],
   exports: [NavbarComponent],
 })
-export class CoreModule {}
+export class CoreModule { }

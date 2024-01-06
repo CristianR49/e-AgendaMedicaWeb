@@ -21,10 +21,6 @@ FormGroup.prototype.validate = function () {
         case 'required':
           erros.push(`O campo "${campo}" é obrigatório!`);
           break;
-
-        case 'email':
-          erros.push(`O campo "${campo}" deve seguir um formato válido!`);
-          break;
       }
     }
   }

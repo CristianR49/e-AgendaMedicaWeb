@@ -21,7 +21,7 @@ export class EditarMedicoComponent {
     private toastrService: ToastrService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -48,7 +48,6 @@ export class EditarMedicoComponent {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (!id) return;
-    console.log("PAssou1");
     this.medicoService.editar(id, this.medicoVM).subscribe({
       next: (medico) => this.processarSucesso(medico),
       error: (erro) => this.processarFalha(erro),

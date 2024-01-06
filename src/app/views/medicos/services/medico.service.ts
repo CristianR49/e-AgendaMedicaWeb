@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { FormsMedicoViewModel } from '../models/forms-medico.view-model';
 import { ListarMedicoViewModel } from '../models/listar-medico.view-model';
 import { VisualizarMedicoViewModel } from '../models/visualizar-medico.view-model';
@@ -16,10 +14,9 @@ export class MedicosService {
   private endpoint: string =
     'https://localhost:7287/api/medicos/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  public inserir(medico: FormsMedicoViewModel): Observable<FormsMedicoViewModel> 
-  {
+  public inserir(medico: FormsMedicoViewModel): Observable<FormsMedicoViewModel> {
     return this.http
       .post<any>(this.endpoint, medico)
       .pipe(
@@ -81,7 +78,7 @@ export class MedicosService {
         'O usuário não está autorizado. Efetue login e tente novamente.';
     else mensagemErro = erro.error?.[0].message;
 
-    
+
 
     return throwError(() => new Error(mensagemErro));
   }

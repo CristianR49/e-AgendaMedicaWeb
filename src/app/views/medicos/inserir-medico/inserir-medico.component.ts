@@ -24,7 +24,7 @@ export class InserirMedicoComponent implements OnInit {
     private medicoService: MedicosService,
     private toastrService: ToastrService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -49,8 +49,7 @@ export class InserirMedicoComponent implements OnInit {
     this.medicoVM = this.form.value;
 
     this.medicoService.inserir(this.medicoVM).subscribe({
-      next: (medico: FormsMedicoViewModel) => {console.log(medico)
-        this.processarSucesso(medico)},
+      next: (medico: FormsMedicoViewModel) => this.processarSucesso(medico),
       error: (err: Error) => this.processarFalha(err),
     });
   }
