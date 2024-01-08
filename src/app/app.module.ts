@@ -10,6 +10,7 @@ import { DashboardModule } from './views/dashboard/dashboard.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { RouterModule } from '@angular/router';
     DashboardModule,
     ReactiveFormsModule,
     RouterModule,
+    TimepickerModule.forRoot(),
   ],
   bootstrap: [AppComponent],
 })
