@@ -1,4 +1,5 @@
 export enum TipoAtividadeEnum {
-  Consulta = 1,
-  Cirurgia = 2
+  Nenhum,
+  Consulta = "Consulta",
+  Cirurgia = "Cirurgia"
 }

@@ -3,7 +3,12 @@ import { FormGroup } from '@angular/forms';
 declare module '@angular/forms' {
   interface FormGroup {
     validate(): string[];
+    chamada(): any;
   }
+}
+
+FormGroup.prototype.chamada = function () {
+  console.log("chamada");
 }
 
 FormGroup.prototype.validate = function () {

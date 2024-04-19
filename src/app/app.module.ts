@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
     DashboardModule,
     ReactiveFormsModule,
     RouterModule,
-    TimepickerModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent],
 })

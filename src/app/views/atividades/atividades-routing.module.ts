@@ -4,9 +4,15 @@ import { AtividadesService } from "./services/atividade.service";
 import { NgModule, inject } from "@angular/core";
 import { ListarAtividadesComponent } from "./listar-atividades/listar-atividades.component";
 import { InserirAtividadeComponent } from "./inserir-atividade/inserir-atividade.component";
+import { ListarMedicoViewModel } from "../medicos/models/listar-medico.view-model";
+import { MedicosService } from "../medicos/services/medico.service";
 
 const listarAtividadesResolver: ResolveFn<ListarAtividadeViewModel[]> = () => {
   return inject(AtividadesService).selecionarTodos();
+};
+
+const SelecionarMedicosResolver: ResolveFn<ListarMedicoViewModel[]> = () => {
+  return inject(MedicosService).selecionarTodos();
 };
 
 const routes: Routes = [
@@ -18,6 +24,7 @@ const routes: Routes = [
   {
     path: 'inserir',
     component: InserirAtividadeComponent,
+    resolve: { medicos: SelecionarMedicosResolver }
   },
 ];
 

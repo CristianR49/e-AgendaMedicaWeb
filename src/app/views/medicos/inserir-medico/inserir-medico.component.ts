@@ -39,8 +39,9 @@ export class InserirMedicoComponent implements OnInit {
 
   gravar() {
     if (this.form.invalid) {
-      for (let erro of this.form.validate()) {
+      for (let erro of this.validatee()) {
         this.toastrService.warning(erro);
+        this.form.chamada()
       }
 
       return;
@@ -53,6 +54,28 @@ export class InserirMedicoComponent implements OnInit {
       error: (err: Error) => this.processarFalha(err),
     });
   }
+
+  validatee() {
+    const erros: string[] = [];
+
+    for (let campo of Object.keys(this.form.controls)) {
+      const controle = this.form.get(campo);
+
+      if (!controle?.errors) continue;
+
+      controle.markAsTouched();
+
+      for (let erro of Object.keys(controle.errors)) {
+        switch (erro) {
+          case 'required':
+            erros.push(`O campo "${campo}" é obrigatório!`);
+            break;
+        }
+      }
+    }
+
+    return erros;
+  };
 
   processarSucesso(medico: FormsMedicoViewModel) {
     this.toastrService.success(

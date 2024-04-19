@@ -1,0 +1,33 @@
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 32px;
+}
+
+select.tipo-consulta {
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.is-invalid-select {
+  font-size: 16px;
+  padding: 5px;
+  border: 1px solid red;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.checkbox-card {
+  transform: scale(2.3);
+}
+
+.is-invalid {
+  border: 1px solid #dc3545;
+}
+
+.divtimepicker {
+  width: 180px;
+}
