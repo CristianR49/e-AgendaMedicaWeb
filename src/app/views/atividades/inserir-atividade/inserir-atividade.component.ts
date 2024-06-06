@@ -58,19 +58,6 @@ export class InserirAtividadeComponent implements OnInit {
       .get(nome)!.touched && this.form.get(nome)!.invalid;
   }
 
-  // validarCheckboxes() {
-  //   console.log("fooi");
-  //   return (control: FormControl) => {
-  //     console.log(control.value.length);
-  //     if (control.value.length > 0) {
-  //       console.log("trueee");
-  //       return true;
-  //     }
-  //     console.log("falseee");
-  //     return false;
-  //   };
-  // }
-
   checkboxMarcado(medico: ListarMedicoViewModel, event: any): void {
     if (event.target.checked) {
       this.medicosSelecionados.push(medico);
@@ -85,8 +72,6 @@ export class InserirAtividadeComponent implements OnInit {
     }
 
     this.algumMedicoMarcado();
-
-    console.log(this.medicosSelecionados)
   }
 
   private algumMedicoMarcado() {
@@ -123,8 +108,6 @@ export class InserirAtividadeComponent implements OnInit {
     }
 
     this.atividadeVM.medicos = idsMedicos;
-
-    console.log(this.atividadeVM.medicos);
 
     this.atividadeService.inserir(this.atividadeVM).subscribe({
       next: (atividade: FormsAtividadeViewModel) => this.processarSucesso(atividade),

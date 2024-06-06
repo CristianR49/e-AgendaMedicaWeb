@@ -41,7 +41,6 @@ export class InserirMedicoComponent implements OnInit {
     if (this.form.invalid) {
       for (let erro of this.validatee()) {
         this.toastrService.warning(erro);
-        this.form.chamada()
       }
 
       return;

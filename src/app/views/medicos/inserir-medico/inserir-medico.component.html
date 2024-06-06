@@ -18,13 +18,13 @@
         </div>
 
         <div class="form-group mb-3 position-relative">
-          <label class="form-label">Crm:</label>
+          <label class="form-label">Crm:</label> <span class="text-muted"> (00000-AA)</span>
           <input
             formControlName="crm"
             [ngClass]="campoEstaInvalido('crm') ? 'is-invalid' : ''"
             class="form-control"
             type="text"
-            placeholder="Digite o crm do medico (00000-AA)"
+            placeholder="Digite o crm do medico"
           />
         </div>
 
