@@ -64,12 +64,21 @@ export class EditarMedicoComponent {
   }
 
   processarSucesso(medico: FormsMedicoViewModel) {
+    let nomeEncurtado = this.reduzirTexto(medico.nome)
     this.toastrService.success(
-      `O médico "${medico.nome}" foi editado com sucesso!`,
+      `O médico "${nomeEncurtado}" foi editado com sucesso!`,
       'Sucesso'
     );
 
     this.router.navigate(['/medicos/listar']);
+  }
+
+  reduzirTexto(texto: string): string {
+    let maximo = 25
+    if (texto.length > maximo) {
+      return texto.substring(0, maximo) + '...';
+    } 
+    return texto;
   }
 
   processarFalha(erro: Error) {

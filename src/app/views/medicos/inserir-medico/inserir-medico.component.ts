@@ -39,7 +39,7 @@ export class InserirMedicoComponent implements OnInit {
 
   gravar() {
     if (this.form.invalid) {
-      for (let erro of this.validatee()) {
+      for (let erro of this.validate()) {
         this.toastrService.warning(erro);
       }
 
@@ -54,7 +54,7 @@ export class InserirMedicoComponent implements OnInit {
     });
   }
 
-  validatee() {
+  validate() {
     const erros: string[] = [];
 
     for (let campo of Object.keys(this.form.controls)) {
@@ -77,12 +77,21 @@ export class InserirMedicoComponent implements OnInit {
   };
 
   processarSucesso(medico: FormsMedicoViewModel) {
+    let nomeEncurtado = this.reduzirTexto(medico.nome)
     this.toastrService.success(
-      `O médico "${medico.nome}" foi cadastrado com sucesso!`,
+      `O médico "${nomeEncurtado}" foi cadastrado com sucesso!`,
       'Sucesso'
     );
 
     this.router.navigate(['/medicos/listar']);
+  }
+
+  reduzirTexto(texto: string): string {
+    let maximo = 32
+    if (texto.length > maximo) {
+      return texto.substring(0, maximo) + '...';
+    } 
+    return texto;
   }
 
   processarFalha(erro: Error) {
