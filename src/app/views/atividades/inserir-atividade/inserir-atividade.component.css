@@ -31,3 +31,14 @@ select.tipo-consulta {
 .divtimepicker {
   width: 180px;
 }
+
+.custom-checkbox {
+  border-color: rgb(190, 185, 185) !important;
+}
+
+.custom-checkbox:disabled {
+  background-color: #c6bcbc; 
+  cursor: not-allowed;
+  border-color: black !important;
+}
+

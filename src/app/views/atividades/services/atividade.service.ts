@@ -39,7 +39,7 @@ export class AtividadesService {
     if (erro.status == 401)
       mensagemErro =
         'O usuário não está autorizado. Efetue login e tente novamente.';
-    else mensagemErro = erro.error?.[0].message;
+    else mensagemErro = erro.error?.Erros[0];
 
     return throwError(() => new Error(mensagemErro));
   }

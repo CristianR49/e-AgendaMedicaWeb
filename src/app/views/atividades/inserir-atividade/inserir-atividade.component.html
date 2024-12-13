@@ -6,18 +6,19 @@
       </div>
 
       <i class="bi-class-name"></i>
-      <!-- todo excluir ícone-->
+      <!-- TODO excluir ícone-->
 
 
       <form [formGroup]="form" (ngSubmit)="gravar()" class="mt-4">
 
-        <div class="form-group mb-3 position-relative">
-          <label class="form-label ">Nome</label>
-          <label style="color: red;" *ngIf="campoEstaInvalido('nome')">*</label>
-          <input formControlName="nome" [ngClass]="campoEstaInvalido('nome') ? 'is-invalid' : ''" class="form-control"
-            type="text" placeholder="Digite o nome da atividade" />
+        <div class="mt-3">
+          <label class="form-label ">Tipo da atividade</label>
+          <label style="color: red;" *ngIf="campoEstaInvalido('tipoAtividade')">*</label>
         </div>
-
+        <select formControlName="tipoAtividade" class="tipo-consulta"
+          [ngClass]="campoEstaInvalido('tipoAtividade') ? 'is-invalid-select' : ''" (change)="verificarSeEhConsulta($event)">
+          <option *ngFor="let tipo of enumKeys; let i = index" [value]="i">{{tipo}}</option>
+        </select>
 
         <div class="col-12">
           <label class="form-label ">Data</label>
@@ -26,47 +27,42 @@
             [ngClass]="campoEstaInvalido('data') ? 'is-invalid' : ''" ngbDatepicker #d="ngbDatepicker" />
           <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
         </div>
+        
+        <div class="d-flex gap-5 justify-content-center align-items-center">
 
-        <div class="mt-3">
-          <label class="form-label ">Horario de início</label>
-          <label style="color: red;" *ngIf="campoEstaInvalido('horarioInicio')">*</label>
-          <div class="border rounded col-4 row justify-content-center align-items-center divtimepicker"
-            [ngClass]="campoEstaInvalido('horarioInicio') ? 'border-danger': ''">
-            <div class="divtimepicker">
-              <timepicker formControlName="horarioInicio" [showMeridian]="false">
-              </timepicker>
+          <div class="mt-3">
+            <label class="form-label ">Horario de início</label>
+            <label style="color: red;" *ngIf="campoEstaInvalido('horarioInicio')">*</label>
+            <div class="border rounded col-4 row justify-content-center align-items-center divtimepicker"
+              [ngClass]="campoEstaInvalido('horarioInicio') ? 'border-danger': ''">
+              <div class="divtimepicker">
+                <timepicker formControlName="horarioInicio" [showMeridian]="false">
+                </timepicker>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="mt-3">
-          <label class="form-label ">Horario de termino</label>
-          <label style="color: red;" *ngIf="campoEstaInvalido('horarioTermino')">*</label>
-          <div class="border rounded col-4 row justify-content-center align-items-center divtimepicker"
-            [ngClass]="campoEstaInvalido('horarioTermino') ? 'border-danger': ''">
-            <div class="divtimepicker">
-              <timepicker formControlName="horarioTermino" [showMeridian]="false">
-              </timepicker>
+          <div class="mt-3">
+            <label class="form-label ">Horario de termino</label>
+            <label style="color: red;" *ngIf="campoEstaInvalido('horarioTermino')">*</label>
+            <div class="border rounded col-4 row justify-content-center align-items-center divtimepicker"
+              [ngClass]="campoEstaInvalido('horarioTermino') ? 'border-danger': ''">
+              <div class="divtimepicker">
+                <timepicker formControlName="horarioTermino" [showMeridian]="false">
+                </timepicker>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="mt-3">
-          <label class="form-label ">Tipo da atividade</label>
-          <label style="color: red;" *ngIf="campoEstaInvalido('tipoAtividade')">*</label>
         </div>
-        <select formControlName="tipoAtividade" class="tipo-consulta"
-          [ngClass]="campoEstaInvalido('tipoAtividade') ? 'is-invalid-select' : ''">
-          <option *ngFor="let tipo of enumKeys" [value]="tipo">{{tipo}}</option>
-        </select>
 
         <div class="row mt-3 g-2">
           <div>
-            <label class="form-label">Selecione o(s) médico(s)</label>
-            <label style="color: red;" *ngIf="!medicoFoiSelecionado">*</label>
+            <label class="form-label">{{ ehConsulta ? 'Selecione apenas um médico' : 'Selecione o(s) médico(s)' }}</label>
+            <label style="color: red;" *ngIf="!algumMedicoFoiSelecionado">*</label>
           </div>
-          <div class="row g-2 border rounded" [ngClass]="!medicoFoiSelecionado ? 'border-danger': ''">
-            <div class="col-6" *ngFor="let medico of medicosDisponiveis">
+          <div class="row g-2 pb-2 border rounded" [ngClass]="!algumMedicoFoiSelecionado ? 'border-danger': ''">
+            <div class="col-6" *ngFor="let medico of medicosDisponiveis; let i = index">
 
               <div class="card border-dark">
                 <div class="col-11">
@@ -79,34 +75,16 @@
                   </div>
 
                   <div class="form-check d-flex justify-content-end mb-4 bg-transparent">
-                    <input class="form-check-input checkbox-card" type="checkbox" formControlName="medicosSelecionados"
-                      [value]="medico" (change)="checkboxMarcado(medico, $event)" />
+                    <input
+                    name="checkboxMedico"
+                    (change)="aoMudarCheckbox($event, medico, i)"
+                    class="form-check-input checkbox-card custom-checkbox" type="checkbox"
+                    [value]="medico"
+                    [disabled]="deveEstarDesabilitado(i)"/>
                   </div>
 
                 </div>
               </div>
-
-
-              <!-- <div class="card h-100 border-dark">
-                <div class="card-body d-flex flex-column gap-1">
-                  <div class="d-flex flex-column">
-                    <h3 class="card-title mb-1 text-primary text-ellipsis">
-                      {{ medico.nome }}
-                    </h3>
-                  </div>
-                </div>
-
-                <div class="d-flex gap-1 justify-content-end card-footer bg-transparent">
-
-                  <div class="form-check d-flex justify-content-end mb-4">
-                    <input class="form-check-input checkbox-card" type="checkbox" formControlName="medicosSelecionados"
-                      [value]="medico" (change)="checkboxMarcado(medico, $event)" />
-                  </div>
-
-                </div>
-              </div> -->
-
-
             </div>
           </div>
         </div>
