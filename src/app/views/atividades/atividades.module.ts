@@ -11,12 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { MedicosService } from '../medicos/services/medico.service';
+import { ExcluirAtividadeComponent } from './excluir-atividade/excluir-atividade.component';
 
 
 
 
 @NgModule({
-  declarations: [ListarAtividadesComponent, CardAtividadeComponent, InserirAtividadeComponent],
+  declarations: [ListarAtividadesComponent, CardAtividadeComponent, InserirAtividadeComponent, ExcluirAtividadeComponent],
   imports: [CommonModule, ReactiveFormsModule, AtividadesRoutingModule, FormsModule, NgbModule, NgbTimepickerModule, TimepickerModule.forRoot()],
   providers: [AtividadesService, MedicosService]
 })

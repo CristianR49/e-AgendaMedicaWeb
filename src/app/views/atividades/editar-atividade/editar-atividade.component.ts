@@ -14,11 +14,11 @@ import { ListarMedicoViewModel } from '../../medicos/models/listar-medico.view-m
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'app-inserir-atividade',
-  templateUrl: './inserir-atividade.component.html',
-  styleUrls: ['./inserir-atividade.component.css'],
+  selector: 'app-editar-atividade',
+  templateUrl: './editar-atividade.component.html',
+  styleUrls: ['./editar-atividade.component.css'],
 })
-export class InserirAtividadeComponent implements OnInit {
+export class EditarAtividadeComponent implements OnInit {
   form!: FormGroup;
   atividadeVM!: FormsAtividadeViewModel;
   model: any;
@@ -53,6 +53,11 @@ export class InserirAtividadeComponent implements OnInit {
       next: (medicos) => {
         this.medicosDisponiveis = medicos
       }
+    });
+
+    this.route.data.pipe(map((dados) => dados['atividade'])).subscribe({
+      next: (atividade) => this.obterAtividade(atividade),
+      error: (erro) => this.processarFalha(erro),
     });
 
     this.route.data.pipe(map((res) => res['medicos'])).subscribe({
@@ -209,11 +214,36 @@ export class InserirAtividadeComponent implements OnInit {
     return dataConvertida
   }
 
+  obterAtividade(atividade: FormsAtividadeViewModel) {
+    this.atividadeVM = atividade;
+    this.form.patchValue(this.atividadeVM);
+  }
+
+
+  gravar2() {
+    if (this.form.invalid) {
+      for (let erro of this.form.validate()) {
+        this.toastrService.warning(erro);
+      }
+      return;
+    }
+
+    this.atividadeVM = this.form.value;
+
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) return;
+    this.atividadeService.editar(id, this.atividadeVM).subscribe({
+      next: (atividade) => this.processarSucesso(atividade),
+      error: (erro) => this.processarFalha(erro),
+    });
+  }
+
   gravar() {
 
     this.corrigirValores()
 
-    this.atividadeService.inserir(this.atividadeVM).subscribe({
+    this.atividadeService.editar(this.atividadeVM).subscribe({
       next: (atividade: FormsAtividadeViewModel) => this.processarSucesso(atividade),
       error: (err: Error) => this.processarFalha(err),
     });

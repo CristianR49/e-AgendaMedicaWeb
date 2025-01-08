@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-12 col-sm-10 col-lg-9 mx-auto my-5">
+
+      <div class="text-md-start">
+        <div class="text-md-start">
+          <h1 class="fw-bold text-primary">Excluir Atividade</h1>
+          <hr />
+        </div>
+
+        <div class="div-nome">
+          <span class="fs-6 fw-bolder">
+            Tem certeza que deseja excluir essa atividade?
+          </span>
+        </div>
+
+      </div>
+
+      <dl class="form-group mt-4">
+        <dt class="col">
+          <label class="control-label">Atividade:</label>
+        </dt>
+        <dd class="col-sm-2">{{ colocarNomeTipoAtividade(atividadeVM) }}
+        </dd>
+
+        <dt class="col-sm-2">
+          <label class="control-label">Data:</label>
+        </dt>
+        <dd class="col-md-8">{{ encurtarData(atividadeVM.data.toString()) }}</dd>
+      
+        <dt class="col-sm-2">
+          <label class="control-label">Horário:</label>
+        </dt>
+        <div class="d-flex gap-2">
+          <dd class="card-title mb-1">
+            {{ encurtarHora(atividadeVM.horarioInicio.toString()) }}
+          </dd>
+          <dd class="card-title mb-1">
+            -
+          </dd>
+          <dd class="card-title mb-1">
+            {{ encurtarHora(atividadeVM.horarioTermino.toString()) }}
+          </dd>
+        </div>
+
+        <div class="d-flex">
+          <h6 class="card-title" style="margin-right: 7px;">
+            Médico(s): 
+          </h6>
+          
+          <div class="d-flex" *ngFor="let nomeMedico of atividadeVM.medicos">
+            <h6 class="text-ellipsis">
+              {{ nomeMedico }}
+            </h6>
+            <h6 *ngIf="atividadeVM.medicos.length > 1 && atividadeVM.medicos[atividadeVM.medicos.length - 1] != nomeMedico" style="margin-right: 7px;">
+              {{ ", " }}
+            </h6>
+          </div>
+        </div>
+      </dl>
+      
+
+      <div class="card-footer g-grid d-flex gap-1 mt-5">
+        <button data-cy="btnExcluirAtividade" (click)="gravar()" type="button" class="btn btn-danger px-5">
+          <i class="bi bi-trash-fill me-2"></i>
+          Excluir
+        </button>
+        <button (click)="voltarParaAtividades()" type="button" class="btn btn-outline-primary px-5">
+          <i class="pi pi-arrow-left me-2"></i>
+          Voltar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
